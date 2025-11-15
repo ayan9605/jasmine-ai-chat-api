@@ -7,8 +7,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "prod": "NODE_ENV=production node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prod": "NODE_ENV=production node server.js"
   },
   "keywords": [
     "ai",
@@ -16,9 +15,7 @@
     "api",
     "express",
     "undici",
-    "scalar",
-    "rest-api",
-    "mistral"
+    "scalar"
   ],
   "author": "Ayan Sayyad",
   "license": "MIT",
@@ -27,7 +24,7 @@
     "npm": ">=9.0.0"
   },
   "dependencies": {
-    "@scalar/express-api-reference": "^1.39.0",
+    "@scalar/express-api-reference": "^0.8.16",
     "compression": "^1.7.4",
     "dotenv": "^16.4.5",
     "express": "^4.21.2",
@@ -38,25 +35,5 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.7"
-  },
-  "nodemonConfig": {
-    "watch": [
-      "server.js",
-      ".env"
-    ],
-    "ext": "js,json",
-    "ignore": [
-      "node_modules/",
-      ".git/"
-    ],
-    "delay": "1000"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/yourusername/jasmine-ai-chat-api"
-  },
-  "bugs": {
-    "url": "https://github.com/yourusername/jasmine-ai-chat-api/issues"
-  },
-  "homepage": "https://github.com/yourusername/jasmine-ai-chat-api#readme"
+  }
 }
