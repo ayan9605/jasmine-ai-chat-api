@@ -13,8 +13,23 @@ const PORT = process.env.PORT || 3000;
 // Cache with 5 minute TTL and 10 minute check period
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 600 });
 
-// Security middleware
-app.use(helmet());
+// Security middleware - Configure Helmet to allow Scalar docs
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://cdn.jsdelivr.net"],
+        styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+        fontSrc: ["'self'", "https://fonts.gstatic.com"],
+        imgSrc: ["'self'", "data:", "https:"],
+        connectSrc: ["'self'", "https://cdn.jsdelivr.net"],
+      },
+    },
+    crossOriginEmbedderPolicy: false,
+  })
+);
+
 app.use(compression()); // Gzip compression
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
