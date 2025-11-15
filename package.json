@@ -1,0 +1,62 @@
+{
+  "name": "jasmine-ai-chat-api",
+  "version": "1.0.0",
+  "description": "High-performance AI chat API with beautiful Scalar documentation",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "prod": "NODE_ENV=production node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ai",
+    "chat",
+    "api",
+    "express",
+    "undici",
+    "scalar",
+    "rest-api",
+    "mistral"
+  ],
+  "author": "Ayan Sayyad",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.17.0",
+    "npm": ">=9.0.0"
+  },
+  "dependencies": {
+    "@scalar/express-api-reference": "^1.39.0",
+    "compression": "^1.7.4",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.4.1",
+    "helmet": "^8.0.0",
+    "node-cache": "^5.1.2",
+    "undici": "^7.16.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  },
+  "nodemonConfig": {
+    "watch": [
+      "server.js",
+      ".env"
+    ],
+    "ext": "js,json",
+    "ignore": [
+      "node_modules/",
+      ".git/"
+    ],
+    "delay": "1000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/jasmine-ai-chat-api"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/jasmine-ai-chat-api/issues"
+  },
+  "homepage": "https://github.com/yourusername/jasmine-ai-chat-api#readme"
+}
