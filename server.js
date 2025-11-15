@@ -10,6 +10,9 @@ import 'dotenv/config';
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Trust proxy - CRITICAL for Render, Railway, Heroku, etc.
+app.set('trust proxy', true);
+
 // Cache with 5 minute TTL and 10 minute check period
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 600 });
 
@@ -179,7 +182,8 @@ app.get('/health', (req, res) => {
   res.json({ 
     status: 'healthy', 
     uptime: process.uptime(),
-    cache: cache.getStats()
+    cache: cache.getStats(),
+    ip: req.ip // Shows detected IP
   });
 });
 
@@ -310,7 +314,8 @@ app.get('/openapi.json', (req, res) => {
                   example: {
                     status: 'healthy',
                     uptime: 12345.67,
-                    cache: { keys: 1, hits: 45, misses: 3 }
+                    cache: { keys: 1, hits: 45, misses: 3 },
+                    ip: '1.2.3.4'
                   }
                 }
               }
