@@ -34,21 +34,34 @@ app.use(compression()); // Gzip compression
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// CORS
+// CORS - Must be before routes
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  
+  // Handle preflight
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
   next();
 });
 
 // Rate limiting: 100 requests per 15 minutes per IP
+// Skip rate limiting for docs and OpenAPI spec
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
   message: { error: 'Too many requests, please try again later.' },
   standardHeaders: true,
   legacyHeaders: false,
+  skip: (req) => {
+    // Skip rate limiting for documentation routes
+    return req.path === '/docs' || 
+           req.path === '/openapi.json' || 
+           req.path === '/' ||
+           req.path === '/health';
+  }
 });
 
 app.use('/api/', limiter);
@@ -67,7 +80,6 @@ async function fetchNonce() {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
       },
-      maxRedirections: 3,
       bodyTimeout: 10000,
       headersTimeout: 10000
     });
@@ -173,6 +185,11 @@ app.get('/health', (req, res) => {
 
 // OpenAPI Specification - MUST be defined BEFORE /docs route
 app.get('/openapi.json', (req, res) => {
+  // Get the host dynamically
+  const protocol = req.protocol;
+  const host = req.get('host');
+  const baseUrl = `${protocol}://${host}`;
+
   res.json({
     openapi: '3.1.0',
     info: {
@@ -185,8 +202,10 @@ app.get('/openapi.json', (req, res) => {
       }
     },
     servers: [
-      { url: `http://localhost:${PORT}`, description: 'Development' },
-      { url: 'https://your-domain.com', description: 'Production' }
+      { 
+        url: baseUrl,
+        description: 'Current server'
+      }
     ],
     paths: {
       '/api/chat': {
