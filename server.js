@@ -156,19 +156,7 @@ app.get('/health', (req, res) => {
   });
 });
 
-// Beautiful API Documentation with Scalar
-app.use('/docs', apiReference({
-  theme: 'purple',
-  spec: {
-    url: '/openapi.json'
-  },
-  customCss: `
-    .scalar-api-reference { font-family: 'Inter', system-ui, sans-serif; }
-    .scalar-card { border-radius: 12px; }
-  `
-}));
-
-// OpenAPI Specification
+// OpenAPI Specification - MUST be defined BEFORE /docs route
 app.get('/openapi.json', (req, res) => {
   res.json({
     openapi: '3.1.0',
@@ -300,6 +288,12 @@ app.get('/openapi.json', (req, res) => {
   });
 });
 
+// Beautiful API Documentation with Scalar
+app.use('/docs', apiReference({
+  theme: 'purple',
+  url: '/openapi.json',
+}));
+
 // Root redirect
 app.get('/', (req, res) => {
   res.redirect('/docs');
@@ -311,4 +305,5 @@ app.listen(PORT, () => {
   console.log(`📚 Docs available at http://localhost:${PORT}/docs`);
   console.log(`🏥 Health check at http://localhost:${PORT}/health`);
   console.log(`⚡ Powered by Undici (3-5x faster than Axios)`);
+  console.log(`👨‍💻 Developed by Ayan Sayyad`);
 });
