@@ -67,9 +67,9 @@ npm start
 
 text
 
-The API will be running at `http://localhost:3000`
+The API will be running at `https://jasmine-ai-chat-api.onrender.com`
 
-📚 **View documentation**: `http://localhost:3000/docs`
+📚 **View documentation**: `https://jasmine-ai-chat-api.onrender.com/docs`
 
 
 ## ⚙️ Configuration
@@ -106,7 +106,7 @@ Send a chat message and receive an AI response.
 - `system` (string, optional): Custom system prompt for AI behavior
 
 **Example Request:**
-curl "http://localhost:3000/api/chat?user=What's%20your%20name?"
+curl "https://jasmine-ai-chat-api.onrender.com/api/chat?user=What's%20your%20name?"
 
 text
 
@@ -134,7 +134,7 @@ Send a chat message via POST request.
 text
 
 **Request Body (Form Data):**
-curl -X POST http://localhost:3000/api/chat
+curl -X POST https://jasmine-ai-chat-api.onrender.com/api/chat
 -d "user=Hello&system=Custom prompt"
 
 text
@@ -161,7 +161,7 @@ text
 
 ### JavaScript/Node.js
 
-const response = await fetch('http://localhost:3000/api/chat?user=Hello');
+const response = await fetch('https://jasmine-ai-chat-api.onrender.com/api/chat?user=Hello');
 const data = await response.json();
 console.log(data.data.response);
 
@@ -171,7 +171,7 @@ text
 
 import requests
 
-response = requests.get('http://localhost:3000/api/chat',
+response = requests.get('https://jasmine-ai-chat-api.onrender.com/api/chat',
 params={'user': 'Tell me about yourself'})
 print(response.json()['data']['response'])
 
@@ -180,10 +180,10 @@ text
 ### cURL
 
 GET request
-curl "http://localhost:3000/api/chat?user=What's%20the%20weather?"
+curl "https://jasmine-ai-chat-api.onrender.com/chat?user=What's%20the%20weather?"
 
 POST request with JSON
-curl -X POST http://localhost:3000/api/chat
+curl -X POST https://jasmine-ai-chat-api.onrender.com/api/chat
 -H "Content-Type: application/json"
 -d '{"user": "Hello Jasmine!"}'
 
